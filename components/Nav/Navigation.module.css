@@ -1,0 +1,41 @@
+.navWrapper {
+  padding: 20px 0px;
+}
+.dfx {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logoSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logoSection button {
+  display: none;
+}
+.logo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: var(--fontColor);
+}
+.logo > h3 {
+  margin-bottom: 0px;
+  margin-left: 5px;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .logoSection button {
+    display: block;
+  }
+  .navRight {
+    justify-content: center;
+  }
+}
