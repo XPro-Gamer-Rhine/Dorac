@@ -1,29 +1,60 @@
-import Layout from "../../components/layout/layout";
-import styles from "../../styles/Profile.module.css";
-import Banner from "../../assets/img/banner2.png";
-import Man from "../../assets/img/tala2.png";
-import { cardData } from "../../assets/Database";
-
-import Image from "next/image";
-import { Twitter, Share, ThreeDots, PencilSquare } from "react-bootstrap-icons";
-import Button from "../../components/button/Button";
-import Card from "../../components/card/Card";
+import Layout from '../../components/layout/layout';
+import styles from '../../styles/Profile.module.css';
+import Banner from '../../assets/img/banner2.png';
+import Man from '../../assets/img/tala2.png';
+import { cardData } from '../../assets/Database';
+import Davatar from '@davatar/react';
+import Image from 'next/image';
+import {
+  Twitter,
+  Share,
+  ThreeDots,
+  PencilSquare,
+} from 'react-bootstrap-icons';
+import Button from '../../components/button/Button';
+import Card from '../../components/card/Card';
+import { useMoralis } from 'react-moralis';
+import ShortenAddress from '../../components/utils/shortenAddress';
+import useFetcUserhNFTs from '../../hooks/useFetchUserNFTs';
 
 const Profile = () => {
+  const { Moralis, user, account } = useMoralis();
+  const { userNfts } = useFetcUserhNFTs();
+
   return (
     <Layout>
       <div className={styles.header}>
         <Image src={Banner} alt="image" />
       </div>
       <div className={styles.profile}>
-        <div className={styles.profilePic}>
-          <Image src={Man} alt="image" />
-        </div>
+        {account === undefined || account === null ? (
+          <div className={styles.profilePic}>
+            <Image src={Man} alt="image" />
+          </div>
+        ) : (
+          <div
+            style={{
+              width: '10%',
+              margin: '0 auto',
+              marginTop: '-8%',
+              position: 'relative',
+            }}
+          >
+            <Davatar
+              size={155}
+              address={account}
+              generatedAvatarType="jazzicon"
+            />
+          </div>
+        )}
+
         <div className={styles.texts}>
-          <h2>Justin Torff</h2>
+          <h2>
+            <ShortenAddress address={account} />
+          </h2>
           <div className={styles.ico}>
             <span>
-              <Twitter />{" "}
+              <Twitter />{' '}
             </span>
             loremipsum
           </div>
@@ -47,17 +78,25 @@ const Profile = () => {
 
       <br />
       <h5 className={styles.title}>Related Items</h5>
-      <div className="row">
-        {cardData.map((data, index) =>
-          index < 4 ? (
-            <div key={data.id} className="col-md-3 col-sm-6">
+      {account !== undefined && account !== null ? (
+        <div className="row">
+          {userNfts.map((data, index) => (
+            <div key={index} className="col-md-3 col-sm-6">
               <Card data={data} />
             </div>
-          ) : (
-            ""
-          )
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div
+          class="spinner-border text-info"
+          role="status"
+          style={{ marginLeft: '50%', marginTop: '50px' }}
+        >
+          <span class="visually-hidden" style={{ color: 'white' }}>
+            Loading...
+          </span>
+        </div>
+      )}
     </Layout>
   );
 };

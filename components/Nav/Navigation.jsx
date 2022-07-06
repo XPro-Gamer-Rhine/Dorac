@@ -1,16 +1,17 @@
-import styles from "./Navigation.module.css";
-import Button from "../button/Button";
-import Logo from "../../assets/img/logo.png";
+import styles from './Navigation.module.css';
+import Button from '../button/Button';
+import Logo from '../../assets/img/logo.png';
 import {
   Search,
   Telephone,
   ChatSquare,
   BrightnessHigh,
   List,
-} from "react-bootstrap-icons";
-import Image from "next/image";
-import Link from "next/link";
-import { grabLeftSidebar } from "../leftSidebar/Leftsidebar";
+} from 'react-bootstrap-icons';
+import Image from 'next/image';
+import Link from 'next/link';
+import { grabLeftSidebar } from '../leftSidebar/Leftsidebar';
+import MetamaskConnect from '../button/MetamaskConnect';
 
 const Navigation = () => {
   const showNav = () => {
@@ -50,7 +51,7 @@ const Navigation = () => {
               <Button text={<Telephone />} />
               <Button text={<ChatSquare />} />
               <Button text="Create" />
-              <Button text="Connect" />
+              <MetamaskConnect text="Connect" />
               <Button text={<BrightnessHigh />} />
             </div>
           </div>

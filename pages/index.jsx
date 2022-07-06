@@ -1,26 +1,27 @@
-import Script from "next/script";
-import Head from "next/head";
-import Link from "next/link";
-import { useState } from "react";
+import Script from 'next/script';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useState } from 'react';
 
 // internal imports
-import styles from "../styles/Home.module.css";
-import Layout from "../components/layout/layout";
-import Sidebar from "../components/sidebar/Sidebar";
-import { ArrowRight } from "react-bootstrap-icons";
+import styles from '../styles/Home.module.css';
+import Layout from '../components/layout/layout';
+import Sidebar from '../components/sidebar/Sidebar';
+import { ArrowRight } from 'react-bootstrap-icons';
 import {
   sidebarData,
   topCollections,
   cardData,
   topArtists,
-} from "../assets/Database";
-import Card1 from "../components/card1/Card1";
-import Card from "../components/card/Card";
-import Leftsidebar from "../components/leftSidebar/Leftsidebar";
-import Footer from "../components/footer/Footer";
-
+} from '../assets/Database';
+import Card1 from '../components/card1/Card1';
+import Card from '../components/card/Card';
+import Leftsidebar from '../components/leftSidebar/Leftsidebar';
+import Footer from '../components/footer/Footer';
+import useFetchNFTs from '../hooks/useFetchNFTs';
 export default function Home() {
-  const [filtering, setFiltering] = useState("all");
+  const { nfts } = useFetchNFTs();
+  const [filtering, setFiltering] = useState('all');
   return (
     <>
       <Head>
@@ -37,10 +38,11 @@ export default function Home() {
               <div className={styles.Home}>
                 <div className={styles.banner}>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Expedita quod sint modi distinctio excepturi earum ducimus
-                    vitae qui? Excepturi, magni. distinctio excepturi earum
-                    ducimus vitae qui? Excepturi, magni?
+                    Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Expedita quod sint modi distinctio excepturi
+                    earum ducimus vitae qui? Excepturi, magni.
+                    distinctio excepturi earum ducimus vitae qui?
+                    Excepturi, magni?
                   </p>
                   <h4>
                     Lorem ipsum dolor sit amet excepturi earum except
@@ -60,7 +62,10 @@ export default function Home() {
                   </h2>
                   <div className="row">
                     {topCollections.map((data) => (
-                      <div key={data.id} className="col-md-3 col-sm-6">
+                      <div
+                        key={data.id}
+                        className="col-md-3 col-sm-6"
+                      >
                         <Card1 data={data} />
                       </div>
                     ))}
@@ -73,41 +78,52 @@ export default function Home() {
                     <h2 className={styles.title}>Explore Product</h2>
                     <ul className={styles.titleFilters}>
                       <li
-                        onClick={() => setFiltering("all")}
-                        className={filtering === "all" && "activeFilter"}
+                        onClick={() => setFiltering('all')}
+                        className={
+                          filtering === 'all' && 'activeFilter'
+                        }
                       >
                         All
                       </li>
                       <li
-                        onClick={() => setFiltering("art")}
-                        className={filtering === "art" && "activeFilter"}
+                        onClick={() => setFiltering('art')}
+                        className={
+                          filtering === 'art' && 'activeFilter'
+                        }
                       >
                         Art
                       </li>
                       <li
-                        onClick={() => setFiltering("music")}
-                        className={filtering === "music" && "activeFilter"}
+                        onClick={() => setFiltering('music')}
+                        className={
+                          filtering === 'music' && 'activeFilter'
+                        }
                       >
                         Music
                       </li>
                       <li
-                        onClick={() => setFiltering("video")}
-                        className={filtering === "video" && "activeFilter"}
+                        onClick={() => setFiltering('video')}
+                        className={
+                          filtering === 'video' && 'activeFilter'
+                        }
                       >
                         Video
                       </li>
                     </ul>
                   </div>
                   <div className="row justify-content-center">
-                    {cardData
-                      .filter((val) =>
-                        filtering === "all"
-                          ? val.catagory !== filtering
-                          : val.catagory === filtering
-                      )
-                      .map((data, index) => (
-                        <div key={index} className="col-md-3 col-sm-6">
-                          <Card data={data} />
+                    {nfts
+                      .filter((nft) => {
+                        if (nft.image !== undefined) {
+                          return nft;
+                        }
+                      })
+                      .map((nft, index) => (
+                        <div
+                          key={index}
+                          className="col-md-3 col-sm-6"
+                        >
+                          <Card data={nft} />
                         </div>
                       ))}
                   </div>
@@ -123,7 +139,11 @@ export default function Home() {
                 data={sidebarData}
               />
               <br />
-              <Sidebar title="Top Artists" btnTxt="Today" data={topArtists} />
+              <Sidebar
+                title="Top Artists"
+                btnTxt="Today"
+                data={topArtists}
+              />
             </div>
           </div>
         </div>
