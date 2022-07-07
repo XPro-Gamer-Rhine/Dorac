@@ -1,0 +1,80 @@
+.myCard {
+  max-width: 400px;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg2);
+  padding: 7px;
+  border-radius: 10px;
+}
+.cardHeader {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cardHeader > span {
+  width: 60px !important;
+  text-align: right;
+  color: var(--fontDeep);
+  font-weight: 200;
+}
+.headerImages > span {
+  color: var(--fontDeep);
+  margin-left: 10px;
+}
+.headerImages {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 5fr;
+  align-items: center;
+  grid-gap: 0 3px;
+}
+.headerImages img {
+  width: 20px !important;
+  height: 20px !important;
+  /* min-width: 30px !important;
+  min-height: 30px;
+  max-width: 30px !important;
+  max-height: 30px; */
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  min-height: 200px;
+  display: grid;
+}
+.image img {
+  border-radius: 7px;
+  object-fit: cover;
+}
+.customCB > h5 {
+  color: var(--fontColor);
+}
+.customCB > p {
+  color: var(--fontDeep);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cardFooter > h5 {
+  color: var(--blue);
+  margin-bottom: 0px;
+}
+.cardFooter > button {
+  background: var(--blue);
+  color: var(--bg);
+  font-weight: 500;
+}
+.cardFooter > button:hover {
+  color: var(--fontColor);
+}
+@media (max-width: 768px) {
+  .myCard {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
