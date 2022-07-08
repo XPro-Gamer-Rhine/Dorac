@@ -9,16 +9,13 @@ const useBuyNft = () => {
     const ownerOfBefore = await dogNftContract.ownerOf(tokenID);
     console.log('ownerOfBefore', ownerOfBefore);
     setOwnerOf(ownerOfBefore);
-    // const options = {
-    //   value: ethers.utils.formatEther(price).toString(),
-    // };
     const wei = ethers.utils.parseEther(price.toString());
-    const value = ethers.utils.formatEther(wei);
-
-    await marketContract.sellMarketItem(tokenID, {
-      value: String(price),
+    const value = ethers.utils.parseEther(price.toString());
+    const gas = 450000;
+    const tx = await marketContract.sellMarketItem(tokenID, {
+      value: value,
     });
-
+    console.log('tx', tx);
     const ownerOfAfter = await dogNftContract.ownerOf(tokenID);
     console.log('ownerOfAfter', ownerOfAfter);
     setOwnerOf(ownerOfAfter);
