@@ -17,10 +17,10 @@ const privateKey = String(
   process.env.NEXT_PUBLIC_BINANCE_TESTNET_PRIVATE_KEY
 );
 const useContract = () => {
-  const provider = new ethers.providers.AlchemyProvider(
-    'rinkeby',
-    'Fjbb-i8h6Od96y9g18_Jv7-DhNvlb8tu'
-  );
+  const provider = new ethers.providers.JsonRpcProvider(url, {
+    name: 'binance',
+    chainId: 97,
+  });
   const wallet = new ethers.Wallet(privateKey, provider);
   const signer = wallet.connect(provider);
   const dogNftContract = new ethers.Contract(

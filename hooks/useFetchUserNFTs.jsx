@@ -9,7 +9,7 @@ const useFetcUserhNFTs = () => {
   const handleFetchNFT = async (account) => {
     try {
       const marketNfts = await Moralis.Web3API.account.getNFTs({
-        chain: 'rinkeby',
+        chain: 'bsc',
         address: account,
       });
 

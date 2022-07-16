@@ -6,6 +6,7 @@ import { ChevronRight } from 'react-bootstrap-icons';
 import { useState } from 'react';
 import Button from '../components/button/Button';
 import useContract from '../hooks/useContract';
+import { ethers } from 'ethers';
 const UploadNFT = () => {
   const [tokenURL, setTokenURL] = useState('');
   const [tire, setTire] = useState('');
@@ -26,6 +27,12 @@ const UploadNFT = () => {
   } = useContract();
 
   const handleUpload = async () => {
+    // const price = ethers.utils.parseEther('0.001');
+    // const wei = price.toString(10);
+    // console.log(ethers.utils.formatEther(wei, { pad: true }));
+    // console.log(
+    //   ethers.utils.formatEther(wei, { commify: true, pad: true })
+    // );
     const createCollectable = await dogNftContract.createCollectible(
       tokenURL,
       tire,
@@ -44,10 +51,11 @@ const UploadNFT = () => {
       marketAddress,
       tokenID
     );
+    const value = ethers.utils.parseEther('0.001');
     const addMarketItem = await marketContract.addMarketItem(
       tokenID,
       dogNFTAddress,
-      1
+      value
     );
     console.log('Add Market Item');
     console.log(addMarketItem);

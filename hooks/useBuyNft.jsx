@@ -10,7 +10,8 @@ const useBuyNft = () => {
     console.log('ownerOfBefore', ownerOfBefore);
     setOwnerOf(ownerOfBefore);
     const wei = ethers.utils.parseEther(price.toString());
-    const value = ethers.utils.parseEther(price.toString());
+    const value = ethers.utils.formatEther(String(price));
+    console.log(value);
     const gas = 450000;
     const tx = await marketContract.sellMarketItem(tokenID, {
       value: value,
