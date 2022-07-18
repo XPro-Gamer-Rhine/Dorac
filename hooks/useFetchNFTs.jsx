@@ -10,7 +10,7 @@ const useFetchNFTs = () => {
     try {
       const options = {
         chain: 'rinkeby',
-        address: '0x6F4EC0230d0968A2BF0F2820f0621873e2692d01',
+        address: '0xC7f59EF316c16B94b83471013F8290B955ff9323',
       };
       const marketNfts = await Moralis.Web3API.account.getNFTs(
         options

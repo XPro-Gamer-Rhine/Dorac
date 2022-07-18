@@ -45,7 +45,7 @@ const UploadNFT = () => {
       marketAddress,
       tokenID
     );
-    const value = ethers.utils.parseEther('0.1');
+    const value = ethers.utils.parseEther('0.001');
     const addMarketItem = await marketContract.addMarketItem(
       tokenID,
       dogNFTAddress,

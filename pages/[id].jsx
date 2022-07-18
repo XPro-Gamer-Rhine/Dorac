@@ -21,13 +21,15 @@ import ShortenAddress from '../components/utils/shortenAddress';
 import useFetchNFTs from '../hooks/useFetchNFTs';
 import useBuyNft from '../hooks/useBuyNft';
 import { useRouter } from 'next/router';
+import { ethers } from 'ethers';
 
 const Details = () => {
   const [showItem, setShowItem] = useState('history');
   const router = useRouter();
   const { nftDetails } = useNftDetails(router.query.id);
   const { nfts } = useFetchNFTs();
-  const [handleBuy, { ownerOf }] = useBuyNft();
+  const [handleBuy, { ownerOf, sold }] = useBuyNft();
+
   if (nftDetails === undefined) {
     return (
       <Layout>
@@ -35,6 +37,9 @@ const Details = () => {
       </Layout>
     );
   } else {
+    const price = ethers.utils.formatEther(nftDetails.price, {
+      pad: true,
+    });
     return (
       <Layout>
         <div className="container">
@@ -132,17 +137,21 @@ const Details = () => {
 
                   <h4 className={styles.priceSection}>
                     <p>Price : </p>
-                    <span>{nftDetails.price} ETH</span>
+                    <span>{price} ETH</span>
                   </h4>
 
-                  <button
-                    className={styles.buyNowBtn}
-                    onClick={() =>
-                      handleBuy(nftDetails.tokenID, nftDetails.price)
-                    }
-                  >
-                    Buy Now
-                  </button>
+                  {sold === false ? (
+                    <button
+                      className={styles.buyNowBtn}
+                      onClick={() =>
+                        handleBuy(nftDetails.tokenID, price)
+                      }
+                    >
+                      Buy Now
+                    </button>
+                  ) : (
+                    <div className={styles.buyNowBtn}>Buy Now</div>
+                  )}
                 </div>
 
                 <div className={styles.history}>
@@ -152,6 +161,7 @@ const Details = () => {
                       className={
                         showItem === 'history' ? 'activeitems' : ''
                       }
+                      disabled
                     >
                       History
                     </button>
@@ -160,6 +170,7 @@ const Details = () => {
                       className={
                         showItem === 'info' ? 'activeitems' : ''
                       }
+                      disabled
                     >
                       Stats
                     </button>
