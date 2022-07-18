@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import useWeb3Signer from './useWeb3Signer';
 import { useMoralisQuery } from 'react-moralis';
 import Moralis from 'moralis';
 
