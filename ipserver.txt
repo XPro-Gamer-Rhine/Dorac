@@ -1,0 +1,1 @@
+ "deploy-production": "react-scripts build && scp -r ./build/* gatisp@144.202.18.160:/var/www/dorac.app/html"

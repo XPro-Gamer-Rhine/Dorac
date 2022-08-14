@@ -1,0 +1,1 @@
+export const Baseurl="https://tehmasipsen0900.pythonanywhere.com"
